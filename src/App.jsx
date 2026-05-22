@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import Login from "./pages/Login"
 import ProtectedRoutes from "./routes/ProtectedRoutes"
 import Home from "./pages/Home"
@@ -24,6 +24,16 @@ function App() {
 
   return (
     <Routes>
+      <Route
+        path="/"
+        element={
+          token ? (
+            <Navigate to="/home" replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
       <Route path="/login" element={<Login />} />
       <Route element={<ProtectedRoutes />}>
         <Route path="/home" element={<Home />} />
